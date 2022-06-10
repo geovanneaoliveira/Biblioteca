@@ -15,54 +15,64 @@ public class Main {
         in.nextLine();
         Estante e = new Estante(numItens);
         for(int i = 0; i<numItens;i++){
+            Item item;
             System.out.print("Deseja adicionar um livro ou dvd?: ");
-            if(in.nextLine().equalsIgnoreCase("DVD")){
-                DVD dvd = new DVD();
+            String add = in.nextLine();
+            if(add.equalsIgnoreCase("DVD")){
+                item = new DVD();
                 System.out.print("Título: ");
-                dvd.setTitulo(in.nextLine());
+                item.setTitulo(in.nextLine());
                 System.out.print("Gênero: ");
-                dvd.setGenero(in.nextLine());
+                item.setGenero(in.nextLine());
                 System.out.print("Valor: R$");
-                dvd.setValor(in.nextDouble());
+                item.setValor(in.nextDouble());
                 in.nextLine();
                 System.out.print("Ano de lançamento: ");
-                dvd.setAnoLancamento(in.nextInt());
+                ((DVD)item).setAnoLancamento(in.nextInt());
                 in.nextLine();
                 System.out.print("Nome do diretor: ");
-                dvd.setDiretor(in.nextLine());
+                ((DVD) item).setDiretor(in.nextLine());
                 System.out.print("Duração: ");
-                dvd.setDuracao(in.nextDouble());
+                ((DVD) item).setDuracao(in.nextDouble());
                 in.nextLine();
-                e.adicionarItem(dvd);
-            } else {
-                Livro livro = new Livro();
+                e.adicionarItem(item);
+                System.out.print("Deseja avaliar a obra '"+item.getTitulo()+"' agora? (S/N): ");
+                if(in.nextLine().equalsIgnoreCase("s")){
+                    item.avaliar();
+                }
+            } else if(add.equalsIgnoreCase("Livro")){
+                item = new Livro();
                 System.out.print("Título: ");
-                livro.setTitulo(in.nextLine());
+                item.setTitulo(in.nextLine());
                 System.out.print("Gênero: ");
-                livro.setGenero(in.nextLine());
+                item.setGenero(in.nextLine());
                 System.out.print("Valor: R$");
-                livro.setValor(in.nextDouble());
+                item.setValor(in.nextDouble());
                 in.nextLine();
                 System.out.print("Autor: ");
-                livro.setAutor(in.nextLine());
+                ((Livro) item).setAutor(in.nextLine());
                 System.out.print("Ano de publicação: ");
-                livro.setAnoPublicacao(in.nextInt());
+                ((Livro) item).setAnoPublicacao(in.nextInt());
                 in.nextLine();
                 System.out.print("Quantidade de páginas: ");
-                livro.setQtdePaginas(in.nextInt());
+                ((Livro) item).setQtdePaginas(in.nextInt());
                 in.nextLine();
                 System.out.print("Edição: ");
-                livro.setEdicao(in.nextInt());
+                ((Livro) item).setEdicao(in.nextInt());
                 in.nextLine();
-                e.adicionarItem(livro);
+                e.adicionarItem(item);
+                System.out.print("Deseja avaliar a obra '"+item.getTitulo()+"' agora? (S/N): ");
+                if(in.nextLine().equalsIgnoreCase("s")){
+                    item.avaliar();
+                }
             }
         }
         System.out.println("-------ITENS DA ESTANTE--------");
         for (Item i : e.getItems()){
             if(i instanceof Livro){
-                System.out.println("        LIVRO");
+                System.out.println("            LIVRO");
             } else if (i instanceof DVD) {
-                System.out.println("          DVD");
+                System.out.println("             DVD");
             }
             System.out.print("Título: ");
             System.out.println(i.getTitulo());
@@ -91,7 +101,7 @@ public class Main {
             System.out.println("-------------------------------");
         }
         while (true){
-            System.out.print("Deseja avaliar algum item? Se sim, diga seu título,\nsenão, digite 0: ");
+            System.out.print("Deseja avaliar algum item? Se sim, diga sua posição,\nsenão, digite 0: ");
             int pos = in.nextInt();
             in.nextLine();
             if(pos==0){
