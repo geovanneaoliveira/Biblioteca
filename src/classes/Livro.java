@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.Scanner;
+
 public class Livro extends Item{
     private String autor;
     private int qtdePaginas;
@@ -38,5 +40,26 @@ public class Livro extends Item{
 
     public void setEdicao(int edicao) {
         this.edicao = edicao;
+    }
+
+    @Override
+    public void montarDetalhes(Scanner in) {
+        System.out.print("Informe o autor: ");
+        this.setAutor(in.nextLine());
+        System.out.print("Informe a quantidade de páginas: ");
+        this.setQtdePaginas(in.nextInt());
+        System.out.print("Informe o ano de publicação: ");
+        this.setAnoPublicacao(in.nextInt());
+        System.out.println("Informe a edição: ");
+        this.setEdicao(in.nextInt());
+        in.nextLine();
+    }
+
+    @Override
+    public void mostrarDetalhes() {
+        System.out.println("Autor: " + this.getAutor());
+        System.out.println("Número de páginas: " + this.getQtdePaginas());
+        System.out.println("Ano de publicação: " + this.getAnoPublicacao());
+        System.out.println("Edição: " + this.getAnoPublicacao());
     }
 }

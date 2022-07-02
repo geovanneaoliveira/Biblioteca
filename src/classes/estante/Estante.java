@@ -2,15 +2,16 @@ package classes.estante;
 
 import classes.Item;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Estante {
     private int capMaxima;
-    private Item[] items;
+    private ArrayList<Item> items;
 
     public Estante(int capMaxima) {
         setCapMaxima(capMaxima);
-        setItems(new Item[capMaxima]);
+        setItems(new ArrayList<>());
     }
 
     public boolean estanteCheia() {
@@ -37,19 +38,17 @@ public class Estante {
     }
 
     public boolean adicionarItem(Item item) {
-        for (int i = 0; i < this.getItems().length; i++) {
-            if (this.getItems()[i] == null) {
-                this.getItems()[i] = item;
-                return true;
-            }
+        if(this.items.size()<this.getCapMaxima()){
+            return this.items.add(item);
         }
         return false;
     }
 
     public Item removerItem(int posicao) {
-        Item i = this.getItems()[posicao];
-        this.getItems()[posicao] = null;
-        return i;
+        if(posicao<=this.getCapMaxima()) {
+            return this.items.remove(posicao);
+        }
+        return null;
     }
 
     //GETTERS & SETTERS
@@ -62,11 +61,11 @@ public class Estante {
         this.capMaxima = capMaxima;
     }
 
-    public Item[] getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
-    public void setItems(Item[] items) {
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
 }

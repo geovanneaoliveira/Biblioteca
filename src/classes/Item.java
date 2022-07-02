@@ -2,13 +2,14 @@ package classes;
 
 import classes.avaliacao.Avaliacao;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Item {
     private String titulo;
     private String genero;
     private double valor;
-    private Avaliacao[] avaliacoes = new Avaliacao[30];
+    private ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
 
     public void avaliar() {
         Scanner in = new Scanner(System.in);
@@ -20,25 +21,24 @@ public abstract class Item {
         in.nextLine();
         System.out.print("Feedback(opcional): ");
         a.setFeedback(in.nextLine());
-        for (int i = 0; i < getAvaliacoes().length; i++) {
-            if (getAvaliacoes()[i] == null) {
-                this.getAvaliacoes()[i]=a;
-                break;
-            }
-        }
+        avaliacoes.add(a);
     }
 
     public double getTotalRating() {
         double soma = 0;
         int totalAvaliacoes = 0;
         for (Avaliacao a : getAvaliacoes()) {
-            if(a!=null){
+            if (a != null) {
                 totalAvaliacoes++;
                 soma += a.getRating();
             }
         }
-        return soma/totalAvaliacoes;
+        return soma / totalAvaliacoes;
     }
+
+    public abstract void montarDetalhes(Scanner in);
+
+    public abstract void mostrarDetalhes();
 
     //GETTERS & SETTERS
 
@@ -66,11 +66,11 @@ public abstract class Item {
         this.valor = valor;
     }
 
-    public Avaliacao[] getAvaliacoes() {
+    public ArrayList<Avaliacao> getAvaliacoes() {
         return avaliacoes;
     }
 
-    public void setAvaliacoes(Avaliacao[] avaliacoes) {
+    public void setAvaliacoes(ArrayList<Avaliacao> avaliacoes) {
         this.avaliacoes = avaliacoes;
     }
 }
